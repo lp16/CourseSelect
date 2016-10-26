@@ -6,7 +6,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'bcrypt', '~> 3.1.11'
 gem 'faker', '~> 1.6.3'
 gem 'rails_admin', '~> 0.8.1'
-
+#this is a third version
 # gem 'carrierwave'
 # gem 'paperclip'
 # gem 'will_paginate'
