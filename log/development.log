@@ -350,3 +350,92 @@ Processing by HomesController#index as HTML
   Rendered layouts/_content.html.erb (0.1ms)
   Rendered layouts/_footer.html.erb (0.0ms)
 Completed 200 OK in 34ms (Views: 33.7ms | ActiveRecord: 0.3ms)
+  [1m[36m (25.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (7.4ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20160818081955)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (13.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "email" character varying, "num" character varying, "major" character varying, "department" character varying, "password_digest" character varying, "remember_digest" character varying, "admin" boolean DEFAULT 'f', "teacher" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (5.4ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20160818081955"]]
+  [1m[35m (5.8ms)[0m  COMMIT
+Migrating to CreateCourses (20160907152104)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (11.8ms)[0m  CREATE TABLE "courses" ("id" serial primary key, "name" character varying, "course_code" character varying, "course_type" character varying, "teaching_type" character varying, "exam_type" character varying, "credit" character varying, "limit_num" integer, "student_num" integer DEFAULT 0, "class_room" character varying, "course_time" character varying, "course_week" character varying, "teacher_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20160907152104"]]
+  [1m[35m (5.4ms)[0m  COMMIT
+Migrating to CreateGrades (20160909105514)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (6.2ms)[0m  CREATE TABLE "grades" ("id" serial primary key, "course_id" integer, "user_id" integer, "grade" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (5.8ms)[0m  [1mCREATE  INDEX  "index_grades_on_course_id" ON "grades"  ("course_id")[0m
+  [1m[35m (5.5ms)[0m  CREATE  INDEX  "index_grades_on_user_id" ON "grades"  ("user_id")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20160909105514"]]
+  [1m[35m (8.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (4.3ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'courses'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (2.5ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'grades'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (2.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+
+
+Started GET "/" for 10.240.0.240 at 2016-10-26 06:19:20 +0000
+Cannot render console from 10.240.0.240! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomesController#index as HTML
+  Rendered homes/index.html.erb within layouts/application (14432.2ms)
+  Rendered layouts/_header.html.erb (6.0ms)
+  Rendered layouts/_content.html.erb (1.3ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 14621ms (Views: 14607.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/bootstrap.self-b38817c3e3a3049abb1fc08dd6ae448b23330f8453226efdb074710209474f75.js?body=1" for 10.240.0.214 at 2016-10-26 06:19:36 +0000
+Cannot render console from 10.240.0.214! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-382dbfb3f09631a6774437f094e442fc3582ab77b821c48f28e24898ffb03719.css?body=1" for 10.240.0.213 at 2016-10-26 06:19:36 +0000
+Cannot render console from 10.240.0.213! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-7862a8a8b42407b4741a1adeeea35f0d13ddc4f702ec532adb0674491d296495.js?body=1" for 10.240.1.16 at 2016-10-26 06:19:37 +0000
+Cannot render console from 10.240.1.16! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/profile-adb1ac7dd6ca3b6ed8fcbb01011c9d1891fd1ff755071b32211246554314d5ec.png" for 10.240.0.214 at 2016-10-26 06:19:38 +0000
+Cannot render console from 10.240.0.214! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for 10.240.0.230 at 2016-10-26 06:19:40 +0000
+Cannot render console from 10.240.0.230! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
