@@ -11,7 +11,13 @@
         <div class="panel-heading">
           <% if teacher_logged_in? %><h3 class="panel-title">授课列表</h3><% end %>
           <% if student_logged_in? %><h3 class="panel-title">已选课程</h3><% end %>
+          <!-- 增加课程表功能-->
+          <% if student_logged_in? %>
+             <%= link_to "课程表" ,show_owned_course_path(@course),class: 'btn-sm btn-danger' %>
+          <% end%>
         </div>
+
+
 
         <div class="panel-body">
           <table class="table table-responsive table-condensed table-hover">
@@ -46,6 +52,12 @@
           </table>
 
         </div>
+
+
+
+
+
+            <!--  -->
       </div>
     </div>
   </div>

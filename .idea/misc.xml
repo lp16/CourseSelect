@@ -35,6 +35,9 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/views/courses/show.html.erb" />
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="RVM: ruby-2.2.4" project-jdk-type="RUBY_SDK" />
   <component name="masterDetails">
     <states>
