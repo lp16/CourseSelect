@@ -50,11 +50,28 @@ class CoursesController < ApplicationController
     @course=@course-current_user.courses
   end
 
+
+  ####1系统启动的时候 调用select和qquit方法 登录的的账户的信息得以从数据iu中加载出来
+
   def select
     @course=Course.find_by_id(params[:id])
-    current_user.courses<<@course
-    flash={:success => "成功选择课程: #{@course.name}"}
-    redirect_to courses_path, flash: flash
+    flag=false
+    current_user.courses.each do
+        |nowcourse|
+        if nowcourse.name==@course.name
+          flag=true
+          break
+        end
+    end
+    if flag==false
+      current_user.courses<<@course  ##把该用户的课程信息添加到表示当前用户变量的
+                                   ##current_user中 方便之后使用。
+      flash={:success => "成功选择课程: #{@course.name}"}
+      redirect_to courses_path, flash: flash
+    else
+      flash={:danger =>"#{@course.name} 已经添加到您的选课中，请选择其他课程!"}
+      redirect_to courses_path, flash: flash
+    end
   end
 
   def quit
@@ -100,6 +117,5 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:course_code, :name, :course_type, :teaching_type, :exam_type,
                                    :credit, :limit_num, :class_room, :course_time, :course_week)
   end
-
-
+  
 end
