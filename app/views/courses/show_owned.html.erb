@@ -29,8 +29,13 @@
             </thead>
             <tbody>
 
-             <% count=0 %>
-            <% @course.each do |course| %>
+             <% count=0
+                leftcourse=[]
+             %>
+            <%
+              for index in (0..@course.length-1)
+                 course=@course[index]
+             %>
                 <%
 
                   count=count+1
@@ -39,8 +44,11 @@
                   strclasstime=strtime[3..5]
                   classtime=strclasstime.split("-")
 
-                  classstart=classtime[0].to_i
-                  classend=classtime[1].to_i
+                  cstart=classtime[0].to_i
+                  cend=classtime[1].to_i
+
+                  courseinfo=course.name+course.course_time
+
                   if day=='一'
                     nday=1
                   elsif day=='二'
@@ -56,55 +64,72 @@
                   elsif
                   nday=7
                   end
+
+
                 %>
+
+                <%  if 1
+
+                %>
+
                 <tr>
                   <td><%= count %></td>
 
-                  
+
 
                   <td><%= if nday==1
-                            course.name
+                            courseinfo
                           end
                   %></td>
 
                   <td><%= if nday==2
-                            course.name
+                            courseinfo
 
                           end
                   %></td>
 
-                  <td><%= if nday==3
-                            course.name
+                  <td ><%= if nday==3
+                            courseinfo
                           end
                   %></td>
 
 
                   <td><%= if nday==4
-                            course.name
+                            courseinfo
 
                           end
                   %></td>
 
                   <td><%= if nday==5
-                            course.name
+                            courseinfo
 
                           end
                   %></td>
 
                   <td><%= if nday==6
-                            course.name
+                            courseinfo
 
                           end
                   %></td>
 
                   <td><%= if nday==7
-                            course.name
+                            courseinfo
                           end
                   %></td>
 
                   <td></td>
 
                 </tr>
+
+            <% end %>
+
+            <%
+              #对课程再次进行排序
+              @course=@course.sort_by{|e| e[:course_time]}
+              if @course.length ==0
+                   break
+               end
+            %>
             <% end %>
 
             </tbody>

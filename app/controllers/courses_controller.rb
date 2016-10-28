@@ -6,6 +6,9 @@ class CoursesController < ApplicationController
 #/-------------------------------------------------I add these cmments-
   def show_owned
     @course=current_user.courses
+
+    #对课程进行排序
+    @course=@course.sort_by{|e| e[:course_time]}
   end
   #-------------------------for teachers----------------------
 
@@ -51,6 +54,9 @@ class CoursesController < ApplicationController
   def list
     @course=Course.all
     @course=@course-current_user.courses
+
+    #对课程进行排序
+    @course=@course.sort_by{|e| e[:course_time]}
   end
 
 
